@@ -143,7 +143,7 @@ function getLastDigit(/* value */) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  return +value;
+  return Number(value);
 }
 
 /**
