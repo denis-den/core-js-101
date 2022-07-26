@@ -202,8 +202,33 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let resString = '';
+  for (let h = 1; h <= height; h += 1) {
+    for (let w = 1; w <= width; w += 1) {
+      if (h === 1 && w === 1) {
+        resString += '┌';
+      } else if (h === 1 && w !== 1 && w < width) {
+        resString += '─';
+      } else if (h === 1 && w === width) {
+        resString += '┐';
+      } else if (h === height && w === 1) {
+        resString += '└';
+      } else if (h === height && w !== 1 && w < width) {
+        resString += '─';
+      } else if (h === height && w === width) {
+        resString += '┘';
+      } else if (h !== 1 && w === 1) {
+        resString += '│';
+      } else if (h !== 1 && w !== 1 && w < width) {
+        resString += ' ';
+      } else if (h !== 1 && w === width) {
+        resString += '│';
+      }
+    }
+    resString += '\n';
+  }
+  return resString;
 }
 
 
@@ -223,8 +248,21 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphabetPartOne = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const alphabetPartTwo = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  return str
+    .split('')
+    .map((char) => {
+      if (alphabetPartOne.indexOf(char) !== -1) {
+        return alphabetPartTwo[alphabetPartOne.indexOf(char)];
+      }
+      if (alphabetPartTwo.indexOf(char) !== -1) {
+        return alphabetPartOne[alphabetPartTwo.indexOf(char)];
+      }
+      return char;
+    })
+    .join('');
 }
 
 /**
@@ -240,8 +278,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 
